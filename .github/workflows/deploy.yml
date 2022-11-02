@@ -36,8 +36,14 @@ jobs:
 
       # Deploy to AWS CloudFormation
       - name: Deploy to AWS CloudFormation
+        id: cfn-stack
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: arh-github-actions
           template: bucket.yaml
           no-fail-on-empty-changeset: "1"
+          
+      - name: Resilience check
+        env: ${{ steps.cfn-stack.outputs.StackARN }}
+        run: |
+            aws stepfunctions start-execution --state-machine-arn arn:aws:states:us-east-1:061578351048:stateMachine:ARH-Applicaton-Assessment --input "{\"AppArn\": \"arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2\", \"StackArn\": $StackARN}"

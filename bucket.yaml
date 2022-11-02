@@ -3,5 +3,10 @@
         "Bucket": {
             "Type": "AWS::S3::Bucket"
         }
+    },
+    "Outputs": {
+        "StackARN": {
+            "Value": {"Ref": "AWS::StackId"}
+        }
     }
 }
