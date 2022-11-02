@@ -20,6 +20,8 @@ jobs:
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    outputs: 
+      StackARN: ${{ steps.cfn-stack.outputs.StackARN }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -43,9 +45,25 @@ jobs:
           template: bucket.yaml
           no-fail-on-empty-changeset: "1"
           
+  resilience-check:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3
+          
       - name: Resilience check
-        env: 
-            StackARN: ${{ steps.cfn-stack.outputs.StackARN }}
-        run: |
-            echo "$StackARN"
+        run: echo $(python --version)
+        # env: 
+        #     StackARN: ${{ steps.cfn-stack.outputs.StackARN }}
+        # run: |
+        #     echo ${{needs.deploy.outputs.StackARN}}
+            
+            
+            
+            
+            
+            
             aws stepfunctions start-sync-execution --state-machine-arn arn:aws:states:us-east-1:061578351048:stateMachine:ARH-Applicaton-Assessment --input "{\"AppArn\": \"arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2\", \"StackArn\": \"$StackARN\"}"
