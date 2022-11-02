@@ -54,8 +54,8 @@ jobs:
         with:
           python-version: '3.10'
       - name: Resilience check
-        with:
+        env:
           StackARN: ${{ steps.cfn-stack.outputs.StackARN }}
-          AppARN: arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2
+          AppARN: 'arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2'
         run: |
           python .github/scripts/resilience-check.py
