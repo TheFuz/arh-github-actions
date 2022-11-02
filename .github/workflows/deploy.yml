@@ -49,12 +49,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
+      - name: Checkout code from master branch
+        uses: actions/checkout@v2
       - name: Install python
         uses: actions/setup-python@v2
         with:
           python-version: '3.10'
-      - name: Checkout code from master branch
-        uses: actions/checkout@v2
+      - name: Install boto
+        run: |
+          pip install boto3
       - name: Resilience check
         env:
           StackARN: ${{ steps.cfn-stack.outputs.StackARN }}
