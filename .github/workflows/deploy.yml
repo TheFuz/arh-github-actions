@@ -52,7 +52,7 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v2
         with:
-            python-version: '3.10'
+          python-version: 3.10
       - name: Resilience check
         run: echo $(python --version)
         # env: 
@@ -60,9 +60,5 @@ jobs:
         # run: |
         #     echo ${{needs.deploy.outputs.StackARN}}
             
-            
-            
-            
-            
-            
-            aws stepfunctions start-sync-execution --state-machine-arn arn:aws:states:us-east-1:061578351048:stateMachine:ARH-Applicaton-Assessment --input "{\"AppArn\": \"arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2\", \"StackArn\": \"$StackARN\"}"
+        
+            # aws stepfunctions start-sync-execution --state-machine-arn arn:aws:states:us-east-1:061578351048:stateMachine:ARH-Applicaton-Assessment --input "{\"AppArn\": \"arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2\", \"StackArn\": \"$StackARN\"}"
