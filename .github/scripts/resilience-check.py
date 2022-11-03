@@ -29,7 +29,7 @@ while (import_status['status'] == 'Pending' or import_status['status'] == 'InPro
     print(import_status['status'])
     
 if import_status['status'] == 'Failed':
-    raise Exception('Resource import failed - ' + import_status)
+    raise Exception('Resource import failed - ' + str(import_status))
     
 publish_app = arh.publish_app_version(
     appArn=AppARN
@@ -57,7 +57,7 @@ while (assessment_status['assessment']['assessmentStatus'] == 'Pending' or asses
     print(assessment_status['assessment']['assessmentStatus'])
     
 if assessment_status['assessment']['assessmentStatus'] == 'Failed':
-    raise Exception('Assessment failed - ' + assessment_status)
+    raise Exception('Assessment failed - ' + str(assessment_status))
     
 if assessment_status['assessment']['complianceStatus'] == 'PolicyBreached':
     raise Exception('Policy breached')
