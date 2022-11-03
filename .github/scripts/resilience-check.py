@@ -4,7 +4,7 @@ import os
 AppARN = os.environ['AppARN']
 StackARN = os.environ['StackARN']
 
-arh = boto3.client('resiliencehub', region_name='us-west-2')
+arh = boto3.client('resiliencehub', region_name='us-east-1')
 
 print(StackARN)
 
