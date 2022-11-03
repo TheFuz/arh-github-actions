@@ -57,6 +57,6 @@ jobs:
       - name: Resilience check
         env:
           StackARN: 'arn:aws:cloudformation:us-east-1:061578351048:stack/arh-github-actions/14cbea50-5ad7-11ed-aa0d-1299f2029eeb'
-          AppARN: 'arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2'
+          AppARN: 'arn:aws:resiliencehub:us-east-1:061578351048:app/670c27bf-21eb-4ba0-82c3-340186c792c4'
         run: |
           python .github/scripts/resilience-check.py
