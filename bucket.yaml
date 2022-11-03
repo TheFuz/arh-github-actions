@@ -3,9 +3,6 @@
         "Bucket": {
             "Type": "AWS::S3::Bucket"
         },
-        "NewBucket": {
-            "Type": "AWS::S3::Bucket"
-        }
     },
     "Outputs": {
         "StackARN": {
