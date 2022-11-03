@@ -16,19 +16,12 @@ on:
 
 
 jobs:
-  # This workflow contains a single job called "deploy"
   deploy:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    outputs: 
-      StackARN: ${{ steps.cfn-stack.outputs.stack-id }}
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code from master branch
         uses: actions/checkout@v2
 
-      # Configure AWS Credential
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -36,15 +29,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET }}
           aws-region: ${{ github.event.inputs.region }}
 
-      # Deploy to AWS CloudFormation
       - name: Deploy to AWS CloudFormation
-        id: cfn-stack
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: arh-github-actions
           template: bucket.yaml
-          no-fail-on-empty-changeset: "1"
-          
+
   resilience-check:
     runs-on: ubuntu-latest
     needs: deploy
@@ -66,7 +56,7 @@ jobs:
           aws-region: ${{ github.event.inputs.region }}
       - name: Resilience check
         env:
-          StackARN: ${{ needs.deploy.outputs.StackARN }}
+          StackARN: 'arn:aws:cloudformation:us-east-1:061578351048:stack/arh-github-actions/14cbea50-5ad7-11ed-aa0d-1299f2029eeb'
           AppARN: 'arn:aws:resiliencehub:us-east-1:061578351048:app/a4d79b1f-af97-45d4-bdcb-b80f55fd2fd2'
         run: |
           python .github/scripts/resilience-check.py
