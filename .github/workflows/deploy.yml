@@ -42,7 +42,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET }}
-          aws-region: ${{ env.AWS_region }}
+          aws-region: us-east-1
       - name: Resilience check
         env:
           StackARN: arn:aws:cloudformation:us-east-1:061578351048:stack/arh-github-actions/14cbea50-5ad7-11ed-aa0d-1299f2029eeb
