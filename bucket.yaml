@@ -1,6 +1,6 @@
 {
     "Resources": {
-        "Bucket2": {
+        "Bucketbvn": {
             "Type": "AWS::S3::Bucket",
             "Properties": {
                 "VersioningConfiguration": {
