@@ -45,7 +45,7 @@ jobs:
           aws-region: us-east-1
       - name: Resilience check
         env:
-          StackARN: arn:aws:cloudformation:us-east-1:061578351048:stack/arh-github-actions/14cbea50-5ad7-11ed-aa0d-1299f2029eeb
+          StackARN: arn:aws:cloudformation:us-east-1:061578351048:stack/arh-github-actions/138378e0-8bb8-11ed-9b66-0ebb957d5521
           AppARN: arn:aws:resiliencehub:us-east-1:061578351048:app/670c27bf-21eb-4ba0-82c3-340186c792c4
         run: |
           python .github/scripts/resilience-check.py
