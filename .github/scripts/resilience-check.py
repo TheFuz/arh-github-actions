@@ -7,7 +7,8 @@ def resilience_check():
     StackARN = os.environ['StackARN']
 
     arh = boto3.client('resiliencehub', region_name='us-east-1')
-
+    
+    print('Starting import')
     import_resources = arh.import_resources_to_draft_app_version(
         appArn=app_arn,
         sourceArns=[
@@ -26,15 +27,18 @@ def resilience_check():
         import_status = arh.describe_draft_app_version_resources_import_status(
             appArn=app_arn
         )
-        print(import_status['status'])
+        print('Waiting for import to complete, current status = ' + import_status['status'])
         
     if import_status['status'] == 'Failed':
         raise Exception('Resource import failed - ' + str(import_status))
         
+    print('Import status - ' + import_status['status'])
+        
     publish_app = arh.publish_app_version(
         appArn=app_arn
     )
-
+    
+    print('Starting assessment')
     start_assessment = arh.start_app_assessment(
             appArn=app_arn,
             appVersion='release',
@@ -47,14 +51,16 @@ def resilience_check():
     assessmentArn=assessmentARN
     )['assessment']
     
-    print(assessment_status['assessmentStatus'])
+    print('Waiting for assessment to complete, current status - ' + assessment_status['assessmentStatus'])
     
     while (assessment_status['assessmentStatus'] in {'Pending', 'InProgress'}):
         time.sleep(5)
         assessment_status = arh.describe_app_assessment(
             assessmentArn=assessmentARN
-        )
-        print(assessment_status['assessmentStatus'])
+        )['assessment']
+        print('Waiting for assessment to complete, current status - ' + assessment_status['assessmentStatus'])
+        
+    print('Assessment status - ' + import_status['status'])
         
     if assessment_status['assessmentStatus'] == 'Failed':
         raise Exception('Assessment failed - ' + str(assessment_status))
