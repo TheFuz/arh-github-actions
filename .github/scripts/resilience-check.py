@@ -7,7 +7,7 @@ def resilience_check():
     StackARN = os.environ['StackARN']
 
     arh = boto3.client('resiliencehub', region_name='us-east-1')
-    
+
     print('Starting import')
     import_resources = arh.import_resources_to_draft_app_version(
         appArn=app_arn,
@@ -66,6 +66,7 @@ def resilience_check():
         raise Exception('Assessment failed - ' + str(assessment_status))
         
     if assessment_status['complianceStatus'] == 'PolicyBreached':
+        print('Policy breached')
         raise Exception('Policy breached')
     else:
         print('Policy met')
