@@ -60,7 +60,7 @@ def resilience_check():
         )['assessment']
         print('Waiting for assessment to complete, current status - ' + assessment_status['assessmentStatus'])
         
-    print('Assessment status - ' + import_status['status'])
+    print('Assessment status - ' + assessment_status['assessmentStatus'])
         
     if assessment_status['assessmentStatus'] == 'Failed':
         raise Exception('Assessment failed - ' + str(assessment_status))
