@@ -21,7 +21,7 @@ def resilience_check():
 
     print('Waiting for import to complete, current status = ' + import_status['status'])
 
-    while (import_status['status'] in {'Pending' or 'InProgress'}):
+    while (import_status['status'] in ['Pending' or 'InProgress']):
         time.sleep(5)
         import_status = arh.describe_draft_app_version_resources_import_status(
             appArn=app_arn
@@ -49,7 +49,7 @@ def resilience_check():
 
     print(assessment_status)
 
-    while (assessment_status in {'Pending' or 'InProgress'}):
+    while (assessment_status in ['Pending' or 'InProgress']):
         time.sleep(5)
         assessment_status = arh.describe_app_assessment(
             assessmentArn=assessmentARN
