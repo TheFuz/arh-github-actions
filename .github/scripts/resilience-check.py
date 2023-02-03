@@ -44,22 +44,22 @@ def resilience_check():
     assessmentARN = start_assessment['assessment']['assessmentArn']
 
     assessment_status = arh.describe_app_assessment(
-        assessmentArn=assessmentARN
-    )['assessment']['assessmentStatus']
-
-    print(assessment_status)
-
-    while (assessment_status in {'Pending', 'InProgress'}):
+    assessmentArn=assessmentARN
+    )['assessment']
+    
+    print(assessment_status['assessmentStatus'])
+    
+    while (assessment_status['assessmentStatus'] in {'Pending', 'InProgress'}):
         time.sleep(5)
         assessment_status = arh.describe_app_assessment(
             assessmentArn=assessmentARN
         )
-        print(assessment_status)
+        print(assessment_status['assessmentStatus'])
         
-    if assessment_status == 'Failed':
-        raise Exception('Assessment failed - review the assessment on Resilience Hub for details.')
+    if assessment_status['assessmentStatus'] == 'Failed':
+        raise Exception('Assessment failed - ' + str(assessment_status))
         
-    if assessment_status == 'PolicyBreached':
+    if assessment_status['complianceStatus'] == 'PolicyBreached':
         raise Exception('Policy breached')
     else:
         print('Policy met')
