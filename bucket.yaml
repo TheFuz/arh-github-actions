@@ -8,13 +8,8 @@
                 }
             }
         },
-        "asdcvsdsasNewbucket": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {
-                "VersioningConfiguration": {
-                    "Status": "Enabled"
-                }
-            }
+        "Newbucket": {
+            "Type": "AWS::S3::Bucket"
         }
     }
 }
