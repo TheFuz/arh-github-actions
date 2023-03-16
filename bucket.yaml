@@ -7,14 +7,6 @@
                     "Status": "Enabled"
                 }
             }
-        },
-        "dfghdfgh": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {
-                "VersioningConfiguration": {
-                    "Status": "Enabled"
-                }
-            }
         }
     }
 }
