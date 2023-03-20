@@ -7,9 +7,6 @@
                     "Status": "Enabled"
                 }
             }
-        },
-        "asds": {
-            "Type": "AWS::S3::Bucket"
         }
     }
 }
